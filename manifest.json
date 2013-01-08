@@ -1,0 +1,11 @@
+{
+	"name": "PageCycle",
+	"version": "0.1",
+	"manifest_version": 2,
+	"description": "Cycle through a given list of URLs at a specified interval
+",
+	"options_page": "options.html",
+	"browser_action": {
+		"default_popup": "popup.html"
+	},
+}
