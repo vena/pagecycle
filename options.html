@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PageCycle Options</title>
+	<style>
+		#urls {
+			height: 200px;
+			width: 90%;
+		}
+		#urls_container {
+			background: #EEE;
+			min-height: 10px;
+			padding: 3px;
+			width: 90%;
+		}
+		.template { display: none; }
+	</style>
+</head>
+<body>
+	<h1>PageCycle</h1>
+	<p>
+		A simple Chrome extension that allows you to open a window
+		which will cycle through a specified list of URLs at a specified
+		interval.  Values are saved automatically.
+	</p>
+
+	<p>
+		<label for="interval">Interval (in seconds):</label>
+		<input type="text" id="interval" />
+		<br>
+		<small>1 hour = 3600 seconds</small>
+	</p>
+
+	<h2>URLs to Cycle</h2>
+	<button class="add_a_url">Add a New URL Entry</button>	
+	<div id="urls_container">
+	</div>
+	<button class="add_a_url">Add a New URL Entry</button>	
+
+	<script src="options.js"></script>
+	<div class="url_entry template">
+		<div class="call_letters">
+			<input type="text" data-type="call_letters" size="8">
+		</div>
+		<div class="url">
+			<input type="text" data-type="url">
+		</div>
+	</div>
+</body>
+</html>
