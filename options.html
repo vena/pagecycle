@@ -19,11 +19,11 @@
 				box-sizing: border-box;
 				padding: 3px;
 			}
-			#urls_container .call_letters {
+			#urls_container .title {
 				float: left;
 				width: 80px;
 			}
-				#urls_container .call_letters input { width: 100%; }
+				#urls_container .title input { width: 100%; }
 			#urls_container .url {
 				box-sizing: border-box;
 				padding: 0 8px 0 100px;
@@ -52,9 +52,10 @@
 	<button class="add_a_url">Add a New URL Entry</button>	
 	<div id="urls_container">
 		<div>
-			<div class="call_letters">Call Letters</div>
+			<div class="title">Title</div>
 			<div class="url">URL</div>
 		</div>
+		<div id="loading">Loading...</div>
 	</div>
 	<button class="add_a_url">Add a New URL Entry</button>	
 
@@ -64,11 +65,11 @@
 
 	<script src="options.js"></script>
 	<div class="url_entry template">
-		<div class="call_letters">
-			<input type="text" data-type="call_letters" size="8">
+		<div class="title">
+			<input type="text" data-type="title" size="8">
 		</div>
 		<div class="url">
-			<input type="text" data-type="url">
+			<input type="url" data-type="url">
 		</div>
 	</div>
 </body>
