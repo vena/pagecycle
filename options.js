@@ -9,40 +9,51 @@ function save_options()
 		$('#interval').css({ borderColor: 'red' });
 	}
 
-	var urls = [];
+	var urls = [], urlQueries = [];
 	$(url_entries).each(function() {
 		var title = $(this).find('input.title')[0],
-			url = $(this).find('input.url')[0];
+			url = $(this).find('input.url')[0],
+			id = $(this).data('id');
 		if ((title || url) && (title.value || url.value)) {
-			urls.push({
-				"title": title.value,
-				"url": url.value
-			});
+			urls.push([
+				id || null,
+				title.value,
+				url.value
+			]);
 		}
 	});
-	localStorage['urls'] = JSON.stringify(urls);
+	PCDB.query(
+		'INSERT OR REPLACE INTO urls (id, title, url) VALUES (?,?,?)',
+		urls
+	).fail(function (tx, err) {
+		console.log(err);
+	});
 }
 
 function restore_options()
 {
-	var interval = localStorage['interval'],
-		urls = localStorage['urls'] ? JSON.parse(localStorage['urls']) : [];
+	var interval = localStorage['interval'];
 
 	$('#interval')[0].value = interval;
 
-	for (var i = 0, j = urls.length; i < j; i++) {
-		append_url_template(null, urls[i].title, urls[i].url);
-	}
+	PCDB.query(
+		'SELECT * FROM urls'
+	).done(function (urls) {
+		for (var i = 0, j = urls.length; i < j; i++) {
+			append_url_template(null, urls[i].title, urls[i].url, urls[i].id);
+		}
+	});
 
 	$('#loading').fadeOut('fast');
 }
 
-function append_url_template(e, title, url)
+function append_url_template(e, title, url, id)
 {
 	var template = $($('#url_entry_template').html()),
 		container = $('#urls_container tbody');
 
 	template = template.find('tr');
+	if (id) { template.data('id', id); }
 	template.find('input.title')[0].value = title || '';
 	template.find('input.url')[0].value = url || '';
 
@@ -60,8 +71,39 @@ $(function() {
 
 	$('.add_a_url').on('click', append_url_template);
 
+	$('#urls_container').on('keyup', 'input', function() {
+		var tr = $(this).parents('tr');
+		var id = tr.data('id') || null,
+			title = tr.find('input.title')[0].value,
+			url = tr.find('input.url')[0].value;
+		if (id) {
+			PCDB.query(
+				'INSERT OR REPLACE INTO urls (id, title, url) VALUES (?,?,?)',
+				[
+					id, title, url
+				]
+			);
+		} else if (!tr.data('inserted')) {
+			PCDB.query(
+				'INSERT OR REPLACE INTO urls (id, title, url) VALUES (?,?,?)',
+				[
+					id, title, url
+				]
+			).done(function (ret) {
+				tr.data('id', ret.insertId);
+			});
+			tr.data('inserted', true);
+		}
+	});
+
 	$('#urls_container').on('click', '.delete', function(){
-		$(this).parents('tr').remove();
-		save_options();
+		var tr = $(this).parents('tr');
+		var id = tr.data('id');
+		if (id) {
+			PCDB.query(
+				'DELETE FROM urls WHERE id=?', [ id ]
+			);
+		}
+		tr.remove();
 	});
 });

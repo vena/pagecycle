@@ -24,7 +24,7 @@
 	<p>
 		A simple Chrome extension that allows you to open a window
 		which will cycle through a specified list of URLs at a specified
-		interval. Remember to click "Save Settings" at the bottom of the page!
+		interval.
 	</p>
 
 	<div class="well">
@@ -54,11 +54,9 @@
 		<button class="add_a_url btn btn-small"><i class="icon-plus"></i> Add a New URL Entry</button>	
 
 	</div>
-	
-	<button class="btn btn-primary" id="save">Save Settings</button>
 
 	<table id="url_entry_template">
-		<tr>
+		<tr data-id="">
 			<td class="span2">
 				<input type="text" class="title">
 			</td>
@@ -71,6 +69,8 @@
 		</tr>
 	</table>
 	<script src="vendor/jquery/jquery-1.8.3.js"></script>
+	<script src="vendor/psayre23/websql/jquery.websql.0.2.js"></script>
+	<script src="initdb.js"></script>
 	<script src="vendor/twitter/bootstrap/js/bootstrap.js"></script>
 	<script src="options.js"></script>
 </body>
