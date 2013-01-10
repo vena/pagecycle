@@ -1,11 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>PageCycle</title>
+	<link rel="stylesheet" type="text/css" href="vendor/twitter/bootstrap/css/bootstrap.css">
+	<style>
+		html,body {
+			height: 100%;
+			margin: 0;
+			overflow: hidden;
+			padding: 0;
+			width: 100%;
+		}
+		body {
+			background: #222;
+			color: #EEE;
+		}
+		#overlay {
+			background: #FFF;
+			box-shadow: 0 0 15px 0 rgba(0,0,0,0.5);
+			box-sizing: border-box;
+			color: #888;
+			font-size: 11px;
+			height: 30px;
+			left: 0;
+			line-height: auto;
+			overflow: hidden;
+			padding: 5px;
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 2147483646;
+		}
+			#current_title {
+				color: #005;
+				font-weight: bold;
+			}
+			#controls {
+				top: 3px;
+				position: absolute;
+				right: 5px;
+			}
+			#progress_bar {
+				background: #AAF;
+				border-top: 1px solid #999;
+				bottom: 0;
+				height: 1px;
+				left: 0;
+				position: absolute;
+				width: 0;
+			}
+		#cycleframe {
+			border: 0;
+			box-sizing: border-box;
+			height: 100%;
+			margin: 0;
+			padding: 30px 0 0;
+			width: 100%;
+			z-index: 1;
+		}
+		#error_message {
+			background: #800;
+			border: 1px solid #C88;
+			border-radius: 3px;
+			box-sizing: border-box;
+			color: #FEE;
+			left: 50%;
+			margin-left: -200px;
+			padding: 3px 5px;
+			position: absolute;
+			text-align: center;
+			top: 30%;
+			width: 400px;
+			z-index: 2147483646;
+		}
+	</style>
 </head>
 <body>
+	<iframe id="cycleframe" frameborder="0" scrolling="auto"></iframe>
+	<div id="overlay">
+		<strong>PageCycle</strong> /
+		Current:
+		<span id="current_title">None</span>
+		<div id="controls">
+			<button class="btn btn-mini" id="go_previous"><i class="icon-backward"></i></button>
+			<button class="btn btn-mini" id="go_playpause"><i class="icon-pause"></i></button>
+			<button class="btn btn-mini" id="go_next"><i class="icon-forward"></i></button>
+		</div>
+		<div id="progress_bar"></div>
+	</div>
+
 	<script src="vendor/jquery/jquery-1.8.3.js"></script>
 	<script src="vendor/psayre23/websql/jquery.websql.0.2.js"></script>
 	<script src="initdb.js"></script>
+	<script src="vendor/twitter/bootstrap/js/bootstrap.js"></script>
 	<script src="cycler.js"></script>
 </body>
 </html>

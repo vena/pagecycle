@@ -10,6 +10,6 @@
 	},
 	"permissions": [ "tabs" ],
 	"background": {
-		"page": "cycler.html"
+		"scripts": [ "background.js" ]
 	}
 }
