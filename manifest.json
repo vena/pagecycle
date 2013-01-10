@@ -11,5 +11,6 @@
 	"permissions": [ "tabs" ],
 	"background": {
 		"scripts": [ "background.js" ]
-	}
+	},
+	"update_url": "https://raw.github.com/vena/pagecycle/master/updates.xml"
 }
